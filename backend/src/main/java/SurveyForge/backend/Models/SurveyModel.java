@@ -1,16 +1,23 @@
 package SurveyForge.backend.Models;
 
+
 import SurveyForge.backend.Entities.Question;
 import SurveyForge.backend.Entities.User;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class SurveyModel {
-    Integer id;
+    String id;
     Integer userId;
     String name;
-    List<QuestionModel> questionList;
+    List<Question> questionList;
     LocalDateTime startTime;
     LocalDateTime endTime;
     List<User> collaborators;

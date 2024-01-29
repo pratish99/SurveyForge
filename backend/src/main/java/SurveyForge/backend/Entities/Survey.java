@@ -1,10 +1,21 @@
 package SurveyForge.backend.Entities;
 
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.time.LocalDateTime;
 import java.util.List;
-
+import lombok.*;
+@Data
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Document(collection = "Survey")
 public class Survey {
-    Integer id;
+    String id;
     Integer userId;
     String name;
     List<Question> questionList;

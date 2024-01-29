@@ -1,3 +1,4 @@
+/*
 package SurveyForge.backend.Config;
 
 import org.springframework.context.annotation.Bean;
@@ -21,3 +22,4 @@ public class SecurityConfig {
                 .build();
     }
 }
+*/

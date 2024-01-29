@@ -19,6 +19,6 @@ public class SurveyController {
     @PostMapping("/create-survey")
     public ResponseEntity createSurvey(@RequestBody SurveyModel surveyModel){
         Response response = surveyService.createSurvey(surveyModel);
-        return null;
+        return new ResponseEntity<>(response.getReturnObject(), response.getHttpStatus());
     }
 }
