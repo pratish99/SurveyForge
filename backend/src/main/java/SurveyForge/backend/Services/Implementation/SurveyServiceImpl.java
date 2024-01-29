@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SurveyServiceImpl implements SurveyService {
 
@@ -21,8 +23,14 @@ public class SurveyServiceImpl implements SurveyService {
         return new Response<>(surveyModel);
     }
 
+    @Override
+    public Response getSurvey(String userId) {
+        List<Survey> surveyList = surveyRepository.findByUserId(userId);
+        return new Response<>(surveyList.stream().map(this::toModel).toList());
+    }
+
     private Survey toEntity(SurveyModel surveyModel){
-        Survey survey = Survey.builder()
+        return Survey.builder()
                 .name(surveyModel.getName())
                 .userId(surveyModel.getUserId())
                 .questionList(surveyModel.getQuestionList())
@@ -30,6 +38,18 @@ public class SurveyServiceImpl implements SurveyService {
                 .endTime(surveyModel.getEndTime())
                 .collaborators(surveyModel.getCollaborators())
                 .build();
-        return survey;
+    }
+
+    private SurveyModel toModel(Survey survey){
+        return SurveyModel.builder()
+                .id(survey.getId())
+                .name(survey.getName())
+                .userId(survey.getUserId())
+                .questionList(survey.getQuestionList())
+                .startTime(survey.getStartTime())
+                .endTime(survey.getEndTime())
+                .collaborators(survey.getCollaborators())
+                .build();
+
     }
 }
