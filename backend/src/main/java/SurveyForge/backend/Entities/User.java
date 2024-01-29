@@ -15,8 +15,6 @@ import lombok.*;
 @AllArgsConstructor
 @Document(collection = "User")
 public class User {
-    @Id
-    Integer userId;
+    String id;
     String email;
-
 }

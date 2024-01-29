@@ -16,7 +16,7 @@ import lombok.*;
 @Document(collection = "Survey")
 public class Survey {
     String id;
-    Integer userId;
+    String userId;
     String name;
     List<Question> questionList;
     LocalDateTime startTime;

@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class SurveyModel {
     String id;
-    Integer userId;
+    String userId;
     String name;
     List<Question> questionList;
     LocalDateTime startTime;

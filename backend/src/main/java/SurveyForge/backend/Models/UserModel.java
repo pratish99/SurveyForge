@@ -8,6 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserModel {
-    Integer userId;
+    String id;
     String email;
 }
