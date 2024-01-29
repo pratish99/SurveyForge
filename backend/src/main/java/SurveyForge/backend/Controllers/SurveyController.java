@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SurveyController {
 
     @Autowired
     SurveyService surveyService;
+
 
     @PostMapping("/create-survey")
     public ResponseEntity createSurvey(@RequestBody SurveyModel surveyModel){
@@ -33,4 +35,13 @@ public class SurveyController {
         Response response = surveyService.getSurvey(userId);
         return new ResponseEntity<>(response.getReturnObject(), response.getHttpStatus());
     }
+
+    @GetMapping("/get-collaborated-survey/{userId}")
+    public ResponseEntity getCollaboratedSurvey(@PathVariable("userId") String userId){
+        Response response = surveyService.getCollaboratedSurvey(userId);
+        return new ResponseEntity<>(response.getReturnObject(), response.getHttpStatus());
+    }
+
+
+
 }
