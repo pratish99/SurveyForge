@@ -10,7 +10,7 @@ public class SurveyModel {
     Integer id;
     Integer userId;
     String name;
-    List<Question> questionList;
+    List<QuestionModel> questionList;
     LocalDateTime startTime;
     LocalDateTime endTime;
     List<User> collaborators;
