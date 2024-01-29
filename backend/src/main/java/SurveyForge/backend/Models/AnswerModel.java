@@ -8,7 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AnswerModel {
-    Integer id;
     Integer quesId;
     String answer;
 }
