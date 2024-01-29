@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Question {
-    Integer id;
+    String id;
     String question;
     QuestionType questionType;
     List<String> options;
