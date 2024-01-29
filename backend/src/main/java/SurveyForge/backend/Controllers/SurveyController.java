@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class SurveyController {
 
@@ -32,5 +33,16 @@ public class SurveyController {
     public ResponseEntity getSurvey(@PathVariable("userId") String userId){
         Response response = surveyService.getSurvey(userId);
         return new ResponseEntity<>(response.getReturnObject(), response.getHttpStatus());
+    }
+
+    @PutMapping("/edit-survey")
+    public ResponseEntity editSurvey(@RequestBody SurveyModel surveyModel){
+        Response response = surveyService.editSurvey(surveyModel);
+        return new ResponseEntity<>(response.getReturnObject(),response.getHttpStatus());
+    }
+    @GetMapping("/report/{surveyId}")
+    public ResponseEntity reportSurvey(@PathVariable("surveyId") String surveyId){
+        Response response = surveyService.reportSurvey(surveyId);
+        return new ResponseEntity<>(response.getReturnObject(),response.getHttpStatus());
     }
 }

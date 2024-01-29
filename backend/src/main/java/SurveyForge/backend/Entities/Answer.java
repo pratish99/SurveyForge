@@ -13,6 +13,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Answer {
-    Integer quesId;
+    String quesId;
     String answer;
 }
