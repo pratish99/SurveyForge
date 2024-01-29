@@ -23,6 +23,7 @@ public class SurveyController {
     @Autowired
     SurveyService surveyService;
 
+
     @PostMapping("/create-survey")
     public ResponseEntity createSurvey(@RequestBody SurveyModel surveyModel){
         Response response = surveyService.createSurvey(surveyModel);
@@ -35,6 +36,7 @@ public class SurveyController {
         return new ResponseEntity<>(response.getReturnObject(), response.getHttpStatus());
     }
 
+
     @PutMapping("/edit-survey")
     public ResponseEntity editSurvey(@RequestBody SurveyModel surveyModel){
         Response response = surveyService.editSurvey(surveyModel);
@@ -44,5 +46,11 @@ public class SurveyController {
     public ResponseEntity reportSurvey(@PathVariable("surveyId") String surveyId){
         Response response = surveyService.reportSurvey(surveyId);
         return new ResponseEntity<>(response.getReturnObject(),response.getHttpStatus());
+    }
+
+    @GetMapping("/get-collaborated-survey/{userId}")
+    public ResponseEntity getCollaboratedSurvey(@PathVariable("userId") String userId){
+        Response response = surveyService.getCollaboratedSurvey(userId);
+        return new ResponseEntity<>(response.getReturnObject(), response.getHttpStatus());
     }
 }

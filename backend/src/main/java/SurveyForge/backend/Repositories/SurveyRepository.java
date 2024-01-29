@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface SurveyRepository extends MongoRepository<Survey,String> {
     List<Survey> findByUserId(String userId);
+    List<Survey> findByCollaboratorsId(String email);
 }

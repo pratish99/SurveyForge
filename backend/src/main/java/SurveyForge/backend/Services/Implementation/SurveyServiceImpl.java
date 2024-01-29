@@ -1,7 +1,10 @@
 package SurveyForge.backend.Services.Implementation;
 
 import SurveyForge.backend.Entities.Survey;
+import SurveyForge.backend.Entities.SurveyAnswer;
+import SurveyForge.backend.Entities.User;
 import SurveyForge.backend.Models.SurveyModel;
+import SurveyForge.backend.Models.UserModel;
 import SurveyForge.backend.Repositories.SurveyRepository;
 import SurveyForge.backend.Responses.Response;
 import SurveyForge.backend.Services.SurveyAnswerService;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 public class SurveyServiceImpl implements SurveyService {
@@ -50,10 +54,23 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     public Response reportSurvey(String surveyId) {
-        Optional <Survey> temp = surveyRepository.findById(surveyId);
+        Optional<Survey> temp = surveyRepository.findById(surveyId);
         Survey survey = temp.get();
         SurveyModel surveyModel = toModel(survey);
         return new Response(surveyAnswerService.reportSurvey(surveyModel));
+    }
+    public Response getCollaboratedSurvey(String userId) {
+        return new Response<>(surveyRepository.findByCollaboratorsId(userId));
+    }
+
+    @Override
+    public void updateCollaborator(UserModel userModel, String surveyId){
+        Survey survey = surveyRepository.findById(surveyId).get();
+        List<User> userList = survey.getCollaborators();
+        User user = User.builder().id(userModel.getId()).email(userModel.getEmail()).build();
+        userList.add(user);
+        survey.setCollaborators(userList);
+        surveyRepository.save(survey);
     }
 
     private Survey toEntity(SurveyModel surveyModel){
@@ -77,6 +94,5 @@ public class SurveyServiceImpl implements SurveyService {
                 .endTime(survey.getEndTime())
                 .collaborators(survey.getCollaborators())
                 .build();
-
     }
 }

@@ -30,4 +30,12 @@ public class HomeController {
         return new ResponseEntity<>(response.getReturnObject(), response.getHttpStatus());
     }
 
+    @PostMapping("/invite-collaborator")
+    public ResponseEntity<?> inviteCollaborator(@RequestParam(value = "email") String email, @RequestParam(value = "surveyId") String surveyId){
+        Response response = homeService.inviteCollaborator(email, surveyId);
+        return new ResponseEntity<>(response.getReturnObject(), response.getHttpStatus());
+    }
+
+
+
 }
