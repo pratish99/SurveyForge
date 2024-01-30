@@ -1,4 +1,4 @@
-package SurveyForge.backend.Entities;
+package SurveyForge.backend.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,7 +1,6 @@
 package SurveyForge.backend.Models;
 
 
-import SurveyForge.backend.Entities.Question;
 import SurveyForge.backend.Entities.User;
 import lombok.*;
 

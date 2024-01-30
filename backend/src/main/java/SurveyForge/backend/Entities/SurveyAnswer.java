@@ -1,5 +1,6 @@
 package SurveyForge.backend.Entities;
 
+import SurveyForge.backend.Models.Answer;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 

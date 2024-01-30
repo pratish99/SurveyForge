@@ -1,7 +1,7 @@
 package SurveyForge.backend.Entities;
 
 
-import org.springframework.data.annotation.Id;
+import SurveyForge.backend.Models.Question;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;

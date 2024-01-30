@@ -1,9 +1,8 @@
 package SurveyForge.backend.Services.Implementation;
 
 
-import SurveyForge.backend.Entities.Question;
+import SurveyForge.backend.Models.Question;
 import SurveyForge.backend.Entities.SurveyAnswer;
-import SurveyForge.backend.Models.AnswerModel;
 import SurveyForge.backend.Models.SurveyAnswerModel;
 import SurveyForge.backend.Models.SurveyModel;
 import SurveyForge.backend.Repositories.SurveyAnswerRepository;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SurveyAnswerServiceImpl implements SurveyAnswerService {
