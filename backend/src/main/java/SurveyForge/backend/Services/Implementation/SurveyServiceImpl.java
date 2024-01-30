@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,6 +73,32 @@ public class SurveyServiceImpl implements SurveyService {
         userList.add(user);
         survey.setCollaborators(userList);
         surveyRepository.save(survey);
+    }
+
+    @Override
+    public Response activeSurveys(LocalDateTime time,String userId) {
+        List<Survey> listOfAllSurveys = surveyRepository.findByUserId(userId);
+        List<Survey> listOfDesiredEntities = new ArrayList<>();
+        for (int i =0; i<listOfAllSurveys.size();i++){
+            Survey survey = listOfAllSurveys.get(i);
+            if(time.isBefore(survey.getEndTime()) && time.isAfter(survey.getStartTime())){
+                listOfDesiredEntities.add(survey);
+            }
+        }
+        return new Response<>(listOfDesiredEntities);
+    }
+
+    @Override
+    public Response completedSurveys(LocalDateTime time, String userID) {
+        List<Survey> listOfAllSurveys = surveyRepository.findByUserId(userID);
+        List<Survey> listOfDesiredEntities = new ArrayList<>();
+        for (int i =0; i<listOfAllSurveys.size();i++){
+            Survey survey = listOfAllSurveys.get(i);
+            if(time.isAfter(survey.getEndTime())){
+                listOfDesiredEntities.add(survey);
+            }
+        }
+        return new Response<>(listOfDesiredEntities);
     }
 
     private Survey toEntity(SurveyModel surveyModel){

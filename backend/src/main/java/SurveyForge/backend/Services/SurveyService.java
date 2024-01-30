@@ -7,6 +7,8 @@ import SurveyForge.backend.Repositories.UserRepository;
 import SurveyForge.backend.Responses.Response;
 import org.springframework.http.ResponseEntity;
 
+import java.time.LocalDateTime;
+
 public interface SurveyService {
     Response createSurvey(SurveyModel surveyModel);
     Response getSurvey(String userId);
@@ -16,5 +18,7 @@ public interface SurveyService {
 
     Response getCollaboratedSurvey(String userId);
     void updateCollaborator(UserModel userModel, String surveyId);
+    Response activeSurveys(LocalDateTime time, String userId);
 
+    Response completedSurveys(LocalDateTime time, String userID);
 }
