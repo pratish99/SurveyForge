@@ -3,7 +3,6 @@ package SurveyForge.backend.Services.Implementation;
 
 import SurveyForge.backend.Entities.Question;
 import SurveyForge.backend.Entities.SurveyAnswer;
-import SurveyForge.backend.Models.AnswerModel;
 import SurveyForge.backend.Models.SurveyAnswerModel;
 import SurveyForge.backend.Models.SurveyModel;
 import SurveyForge.backend.Repositories.SurveyAnswerRepository;

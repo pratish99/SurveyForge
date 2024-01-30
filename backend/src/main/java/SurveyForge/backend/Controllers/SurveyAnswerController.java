@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class SurveyAnswerController {
     @Autowired
     SurveyAnswerService surveyAnswerService;

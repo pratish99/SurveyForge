@@ -3,6 +3,7 @@ package SurveyForge.backend.Services.Implementation;
 import SurveyForge.backend.Entities.Survey;
 import SurveyForge.backend.Entities.SurveyAnswer;
 import SurveyForge.backend.Entities.User;
+import SurveyForge.backend.Enumerators.PermissionType;
 import SurveyForge.backend.Models.SurveyModel;
 import SurveyForge.backend.Models.UserModel;
 import SurveyForge.backend.Repositories.SurveyRepository;
@@ -59,18 +60,20 @@ public class SurveyServiceImpl implements SurveyService {
         SurveyModel surveyModel = toModel(survey);
         return new Response(surveyAnswerService.reportSurvey(surveyModel));
     }
-    public Response getCollaboratedSurvey(String userId) {
-        return new Response<>(surveyRepository.findByCollaboratorsId(userId));
-    }
 
     @Override
-    public void updateCollaborator(UserModel userModel, String surveyId){
+    public void updateCollaborator(UserModel userModel, String surveyId, PermissionType permissionType){
         Survey survey = surveyRepository.findById(surveyId).get();
         List<User> userList = survey.getCollaborators();
         User user = User.builder().id(userModel.getId()).email(userModel.getEmail()).build();
         userList.add(user);
         survey.setCollaborators(userList);
         surveyRepository.save(survey);
+    }
+
+    @Override
+    public SurveyModel getSurveyById(String surveyId) {
+        return toModel(surveyRepository.findById(surveyId).get());
     }
 
     private Survey toEntity(SurveyModel surveyModel){

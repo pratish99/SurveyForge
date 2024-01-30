@@ -47,10 +47,4 @@ public class SurveyController {
         Response response = surveyService.reportSurvey(surveyId);
         return new ResponseEntity<>(response.getReturnObject(),response.getHttpStatus());
     }
-
-    @GetMapping("/get-collaborated-survey/{userId}")
-    public ResponseEntity getCollaboratedSurvey(@PathVariable("userId") String userId){
-        Response response = surveyService.getCollaboratedSurvey(userId);
-        return new ResponseEntity<>(response.getReturnObject(), response.getHttpStatus());
-    }
 }
