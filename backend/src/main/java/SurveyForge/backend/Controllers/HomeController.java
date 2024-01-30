@@ -1,5 +1,7 @@
 package SurveyForge.backend.Controllers;
 
+import SurveyForge.backend.Entities.User;
+import SurveyForge.backend.Enumerators.PermissionType;
 import SurveyForge.backend.Models.UserModel;
 import SurveyForge.backend.Responses.Response;
 import SurveyForge.backend.Services.HomeService;
@@ -25,17 +27,21 @@ public class HomeController {
     }*/
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody String email){
-        Response response = homeService.login(email);
+    public ResponseEntity<?> login(@RequestBody User user){
+        Response response = homeService.login(user);
         return new ResponseEntity<>(response.getReturnObject(), response.getHttpStatus());
     }
 
     @PostMapping("/invite-collaborator")
-    public ResponseEntity<?> inviteCollaborator(@RequestParam(value = "email") String email, @RequestParam(value = "surveyId") String surveyId){
-        Response response = homeService.inviteCollaborator(email, surveyId);
+    public ResponseEntity<?> inviteCollaborator(@RequestParam(value = "email") String email, @RequestParam(value = "surveyId") String surveyId, @RequestParam(value = "permissionType")PermissionType permissionType){
+        Response response = homeService.inviteCollaborator(email, surveyId, permissionType);
         return new ResponseEntity<>(response.getReturnObject(), response.getHttpStatus());
     }
 
-
+    @GetMapping("/get-collaborated-survey/{userId}")
+    public ResponseEntity getCollaboratedSurvey(@PathVariable("userId") String userId){
+        Response response = homeService.getCollaboratedSurvey(userId);
+        return new ResponseEntity<>(response.getReturnObject(), response.getHttpStatus());
+    }
 
 }

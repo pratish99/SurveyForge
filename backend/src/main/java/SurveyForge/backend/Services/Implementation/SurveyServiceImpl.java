@@ -3,6 +3,7 @@ package SurveyForge.backend.Services.Implementation;
 import SurveyForge.backend.Entities.Survey;
 import SurveyForge.backend.Entities.SurveyAnswer;
 import SurveyForge.backend.Entities.User;
+import SurveyForge.backend.Enumerators.PermissionType;
 import SurveyForge.backend.Models.SurveyModel;
 import SurveyForge.backend.Models.UserModel;
 import SurveyForge.backend.Repositories.SurveyRepository;
@@ -61,12 +62,9 @@ public class SurveyServiceImpl implements SurveyService {
         SurveyModel surveyModel = toModel(survey);
         return new Response(surveyAnswerService.reportSurvey(surveyModel));
     }
-    public Response getCollaboratedSurvey(String userId) {
-        return new Response<>(surveyRepository.findByCollaboratorsId(userId));
-    }
 
     @Override
-    public void updateCollaborator(UserModel userModel, String surveyId){
+    public void updateCollaborator(UserModel userModel, String surveyId, PermissionType permissionType){
         Survey survey = surveyRepository.findById(surveyId).get();
         List<User> userList = survey.getCollaborators();
         User user = User.builder().id(userModel.getId()).email(userModel.getEmail()).build();
@@ -92,13 +90,17 @@ public class SurveyServiceImpl implements SurveyService {
     public Response completedSurveys(LocalDateTime time, String userID) {
         List<Survey> listOfAllSurveys = surveyRepository.findByUserId(userID);
         List<Survey> listOfDesiredEntities = new ArrayList<>();
-        for (int i =0; i<listOfAllSurveys.size();i++){
+        for (int i = 0; i < listOfAllSurveys.size(); i++) {
             Survey survey = listOfAllSurveys.get(i);
-            if(time.isAfter(survey.getEndTime())){
+            if (time.isAfter(survey.getEndTime())) {
                 listOfDesiredEntities.add(survey);
             }
         }
         return new Response<>(listOfDesiredEntities);
+    }
+
+    public SurveyModel getSurveyById(String surveyId) {
+        return toModel(surveyRepository.findById(surveyId).get());
     }
 
     private Survey toEntity(SurveyModel surveyModel){

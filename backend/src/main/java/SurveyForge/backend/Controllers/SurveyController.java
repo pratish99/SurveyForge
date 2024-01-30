@@ -49,12 +49,6 @@ public class SurveyController {
         return new ResponseEntity<>(response.getReturnObject(),response.getHttpStatus());
     }
 
-    @GetMapping("/get-collaborated-survey/{userId}")
-    public ResponseEntity getCollaboratedSurvey(@PathVariable("userId") String userId){
-        Response response = surveyService.getCollaboratedSurvey(userId);
-        return new ResponseEntity<>(response.getReturnObject(), response.getHttpStatus());
-    }
-
     @GetMapping("/active-surveys/{userId}/{dateAndTime}")
     public ResponseEntity activeSurveys(@PathVariable("dateAndTime")@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")LocalDateTime time,@PathVariable("userId")String userID){
         Response response = surveyService.activeSurveys(time,userID);
@@ -66,4 +60,5 @@ public class SurveyController {
         Response response = surveyService.completedSurveys(time,userID);
         return new ResponseEntity(response.getReturnObject(),response.getHttpStatus());
     }
+
 }
