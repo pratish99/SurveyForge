@@ -37,6 +37,13 @@ public class SurveyController {
         return new ResponseEntity<>(response.getReturnObject(), response.getHttpStatus());
     }
 
+    @GetMapping("/get-particular-survey/{surveyId}")
+    public ResponseEntity getParticularSurvey(@PathVariable("surveyId") String surveyId){
+        Response response = surveyService.getParticularSurvey(surveyId);
+        return new ResponseEntity<>(response.getReturnObject(), response.getHttpStatus());
+    }
+
+
 
     @PutMapping("/edit-survey")
     public ResponseEntity editSurvey(@RequestBody SurveyModel surveyModel){

@@ -44,6 +44,11 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
+    public Response getParticularSurvey(String surveyId) {
+        return new Response(toModel(surveyRepository.findById(surveyId).get()));
+    }
+
+    @Override
     public Response editSurvey(SurveyModel surveyModel) {
         Optional<Survey> temp = surveyRepository.findById(surveyModel.getId());
         Survey survey = temp.get();
