@@ -44,7 +44,7 @@ public class SurveyAnswerServiceImpl implements SurveyAnswerService {
         for (int i =0 ; i<listOfQues.size(); i++){
             Question question = listOfQues.get(i);
             switch(question.getQuestionType()){
-                case SingleSelect ->  listOfReport.add(singleSelectReport(question,listModel, i));
+                case SingleSelect ->  listOfReport.add(singleSelectReport(question,listModel,i));
                 case FivePointScale -> listOfReport.add(fivePointReport(question,listModel,i));
                 case Subjective -> listOfReport.add(subjectiveReport(question,listModel,i));
             }
@@ -63,11 +63,8 @@ public class SurveyAnswerServiceImpl implements SurveyAnswerService {
             totalCount++;
             SurveyAnswerModel surveyAnswerModel = list.get(i);
             map.put(surveyAnswerModel.getAnswerList().get(count).getAnswer(),map.get(surveyAnswerModel.getAnswerList().get(count).getAnswer())+1);
-            if(i==list.size()-1){
-                map.put("Total Count", totalCount);
-            }
         }
-        return new Report<>(question.getQuestion(),map);
+        return new Report<>(question.getQuestion(),map,totalCount);
     }
     private Report fivePointReport(Question question,List<SurveyAnswerModel> list, Integer count){
         HashMap<String, Integer> map = new HashMap<>();
@@ -79,11 +76,8 @@ public class SurveyAnswerServiceImpl implements SurveyAnswerService {
             totalCount++;
             SurveyAnswerModel surveyAnswerModel = list.get(i);
             map.put(surveyAnswerModel.getAnswerList().get(count).getAnswer(),map.get(surveyAnswerModel.getAnswerList().get(count).getAnswer())+1);
-            if(i==list.size()-1){
-                map.put("Total Count", totalCount);
-            }
         }
-        return new Report<>(question.getQuestion(),map);
+        return new Report<>(question.getQuestion(),map,totalCount);
     }
 
     private Report subjectiveReport(Question question,List<SurveyAnswerModel> list, Integer count){
@@ -94,7 +88,7 @@ public class SurveyAnswerServiceImpl implements SurveyAnswerService {
             SurveyAnswerModel surveyAnswerModel = list.get(i);
             listOfAnswers.add(surveyAnswerModel.getAnswerList().get(count).getAnswer());
         }
-        return new Report<>(question.getQuestion(),listOfAnswers);
+        return new Report<>(question.getQuestion(),listOfAnswers,totalCount);
     }
 
     private SurveyAnswer toEntity(SurveyAnswerModel surveyAnswerModel, String surveyId){
