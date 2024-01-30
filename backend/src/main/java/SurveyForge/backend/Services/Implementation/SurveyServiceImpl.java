@@ -31,7 +31,9 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     public Response createSurvey(SurveyModel surveyModel) {
-        surveyRepository.save(toEntity(surveyModel));
+        Survey survey = toEntity(surveyModel);
+        surveyRepository.save(survey);
+        surveyModel.setId(surveyModel.getId());
         return new Response<>(surveyModel);
     }
 
