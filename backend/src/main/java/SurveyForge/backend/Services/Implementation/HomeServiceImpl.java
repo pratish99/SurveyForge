@@ -38,9 +38,14 @@ public class HomeServiceImpl implements HomeService {
     public Response inviteCollaborator(String email, String surveyId, PermissionType permissionType) {
         User user = userRepository.findByEmail(email);
         if(user == null){
-            return new Response("User Not Found! ");
+            return new Response("User Not Found!");
         }
         List<CollaboratedSurveyModel> list =  user.getCollaboratedSurveyList();
+        for(CollaboratedSurveyModel model : list){
+            if(model.getSurveyId().equals(surveyId)){
+                return new Response("User Already Exist!");
+            }
+        }
         list.add(new CollaboratedSurveyModel(surveyId, permissionType));
         user.setCollaboratedSurveyList(list);
         userRepository.save(user);
