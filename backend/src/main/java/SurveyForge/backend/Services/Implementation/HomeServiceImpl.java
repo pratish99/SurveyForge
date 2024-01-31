@@ -38,7 +38,7 @@ public class HomeServiceImpl implements HomeService {
     public Response inviteCollaborator(String email, String surveyId, PermissionType permissionType) {
         User user = userRepository.findByEmail(email);
         if(user == null){
-            return new Response("User Not Found! ", HttpStatus.NOT_FOUND);
+            return new Response("User Not Found! ");
         }
         List<CollaboratedSurveyModel> list =  user.getCollaboratedSurveyList();
         list.add(new CollaboratedSurveyModel(surveyId, permissionType));
