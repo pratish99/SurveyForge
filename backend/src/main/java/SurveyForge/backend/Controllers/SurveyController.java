@@ -56,15 +56,15 @@ public class SurveyController {
         return new ResponseEntity<>(response.getReturnObject(),response.getHttpStatus());
     }
 
-    @GetMapping("/active-surveys/{userId}/{dateAndTime}")
-    public ResponseEntity activeSurveys(@PathVariable("dateAndTime")@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")LocalDateTime time,@PathVariable("userId")String userID){
-        Response response = surveyService.activeSurveys(time,userID);
+    @GetMapping("/active-surveys/{userId}")
+    public ResponseEntity activeSurveys(@PathVariable("userId")String userID){
+        Response response = surveyService.activeSurveys(userID);
         return new ResponseEntity(response.getReturnObject(),response.getHttpStatus());
     }
 
-    @GetMapping("/completed-surveys/{userId}/{dateAndTime}")
-    public ResponseEntity completedSurveys(@PathVariable("dateAndTime")@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")LocalDateTime time,@PathVariable("userId")String userID){
-        Response response = surveyService.completedSurveys(time,userID);
+    @GetMapping("/completed-surveys/{userId}")
+    public ResponseEntity completedSurveys(@PathVariable("userId")String userID){
+        Response response = surveyService.completedSurveys(userID);
         return new ResponseEntity(response.getReturnObject(),response.getHttpStatus());
     }
 

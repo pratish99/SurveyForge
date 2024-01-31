@@ -16,10 +16,10 @@ public interface SurveyService {
     Response getParticularSurvey(String surveyId);
     Response editSurvey(SurveyModel surveyModel);
     Response reportSurvey(String surveyId);
-    Response activeSurveys(LocalDateTime time, String userId);
+    Response activeSurveys(String userId);
     void updateCollaborator(UserModel userModel, String surveyId, PermissionType permissionType);
     SurveyModel getSurveyById(String surveyId);
-    Response completedSurveys(LocalDateTime time, String userID);
+    Response completedSurveys(String userID);
 
 
 }

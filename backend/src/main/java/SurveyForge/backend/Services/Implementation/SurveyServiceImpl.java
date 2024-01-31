@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -81,12 +82,18 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public Response activeSurveys(LocalDateTime time,String userId) {
+    public Response activeSurveys(String userId) {
         List<Survey> listOfAllSurveys = surveyRepository.findByUserId(userId);
         List<Survey> listOfDesiredEntities = new ArrayList<>();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
         for (int i =0; i<listOfAllSurveys.size();i++){
             Survey survey = listOfAllSurveys.get(i);
-            if(time.isBefore(survey.getEndTime()) && time.isAfter(survey.getStartTime())){
+            System.out.println(now);
+            System.out.println(survey.getStartTime());
+            System.out.println(survey.getEndTime());
+            if(now.isBefore(survey.getEndTime()) && now.isAfter(survey.getStartTime())){
+
                 listOfDesiredEntities.add(survey);
             }
         }
@@ -94,12 +101,16 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public Response completedSurveys(LocalDateTime time, String userID) {
+    public Response completedSurveys(String userID) {
         List<Survey> listOfAllSurveys = surveyRepository.findByUserId(userID);
         List<Survey> listOfDesiredEntities = new ArrayList<>();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
         for (int i = 0; i < listOfAllSurveys.size(); i++) {
             Survey survey = listOfAllSurveys.get(i);
-            if (time.isAfter(survey.getEndTime())) {
+            System.out.println(now);
+            System.out.println(survey.getEndTime());
+            if (now.isAfter(survey.getEndTime())) {
                 listOfDesiredEntities.add(survey);
             }
         }
